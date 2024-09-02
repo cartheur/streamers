@@ -1,21 +1,15 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /source
 
-# copy csproj and restore as distinct layers
-COPY ./SnakeChaser/*.sln .
-COPY SnakeChaser/*.csproj ./snake/
-
 # copy everything else and build app
-#COPY SnakeChaser/. ./SnakeChaser/
-#WORKDIR /source/SnakeChaser
+COPY SnakeChaser/*.csproj .
 RUN dotnet restore
-RUN dotnet publish -c release -o /app --no-restore
-
-ENV ASPNETCORE_URLS=http://+:8080
-EXPOSE 8080
+COPY SnakeChaser/. .
+RUN dotnet publish -c release -o /app
 
 # final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
+EXPOSE 8080
 WORKDIR /app
 COPY --from=build /app ./
-ENTRYPOINT ["dotnet", "SnakeChaser.dll"]
+ENTRYPOINT ["./SnakeChaser"]
