@@ -9,10 +9,8 @@ COPY . .
 RUN dotnet restore ./SnakeChaser/*.csproj
 RUN dotnet publish ./SnakeChaser/*.csproj -c debug -o /app --no-restore
 
-# Final stage/image
+# final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
-EXPOSE 8080
 WORKDIR /app
-COPY --from=build /app .
-USER $APP_UID
-ENTRYPOINT ["./SnakeChaser"]
+COPY --from=build /app ./
+ENTRYPOINT ["dotnet", "SnakeChaser.dll"]
