@@ -6,8 +6,8 @@ COPY ./SnakeChaser/*.sln .
 COPY SnakeChaser/*.csproj ./snake/
 
 # copy everything else and build app
-COPY SnakeChaser/. ./SnakeChaser/
-WORKDIR /source/SnakeChaser
+#COPY SnakeChaser/. ./SnakeChaser/
+#WORKDIR /source/SnakeChaser
 RUN dotnet restore
 RUN dotnet publish -c release -o /app --no-restore
 

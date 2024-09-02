@@ -6,4 +6,5 @@ A repo for testing helm deployments focused around the app.
 
 Build the project and run it"
 
-`docker run -it snake -p localhost:8080`
+* `docker build -t snake`
+* `docker run --rm -it -p 8000:8080 -e ASPNETCORE_HTTP_PORTS=8080 snake`
