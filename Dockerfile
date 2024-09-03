@@ -9,7 +9,7 @@ RUN dotnet publish -c release -o /app
 
 # final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
-EXPOSE 8080
+EXPOSE 8000
 WORKDIR /app
 COPY --from=build /app ./
 ENTRYPOINT ["./SnakeChaser"]
